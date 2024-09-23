@@ -32,7 +32,7 @@ class LoginScreen extends StatelessWidget {
             ),
             GestureDetector(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const NoteSelectScreen()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => NoteSelectScreen()));
               },
               child: Container(
                 padding: const EdgeInsets.all(16),
