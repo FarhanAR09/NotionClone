@@ -14,8 +14,8 @@ class NoteSelectScreen extends StatefulWidget {
 class NoteSelectScreenState extends State<NoteSelectScreen> {
 
   List<Note> notes = [
-    Note("what1", "", "1user"),
-    Note("what2", "", "2user"),
+    Note("abc1", "what1", "", "1user"),
+    Note("abc2", "what2", "", "2user"),
   ];
 
   @override
@@ -30,7 +30,7 @@ class NoteSelectScreenState extends State<NoteSelectScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: notes.map((note) => Padding(
             padding: const EdgeInsets.all(8.0),
-            child: NoteSelectionButton(title: note.title,),
+            child: NoteSelectionButton(title: note.title, id: note.id),
           )).toList(),
         ),
       ),

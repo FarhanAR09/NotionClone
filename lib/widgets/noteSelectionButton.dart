@@ -5,9 +5,10 @@ import 'package:notion_clone/models/note.dart';
 
 class NoteSelectionButton extends StatelessWidget{
 
-  const NoteSelectionButton({super.key, required this.note});
+  const NoteSelectionButton({super.key, required this.title, required this.id});
 
-  final Note note;
+  final String title;
+  final String id;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class NoteSelectionButton extends StatelessWidget{
           borderRadius: BorderRadius.all(Radius.circular(16)),
           color: Colors.grey,
         ),
-        child: Text(note.title, style: const TextStyle(color: Colors.white),),
+        child: Text(title, style: const TextStyle(color: Colors.white),),
       ),
     );
   }
