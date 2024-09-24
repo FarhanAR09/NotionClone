@@ -2,7 +2,8 @@ import 'package:notion_clone/models/note.dart';
 
 class NoteAPI {
   Future<List<Note>> fetchNoteTitles () async {
-    return [Note("1", "1", "1", "1")];
+    await Future.delayed(const Duration(seconds: 1));
+    return [Note("1", "Judul 1", "", "1")];
   }
 
   Future<List<Note>> fetchNoteTitlesDummy () async {
@@ -17,6 +18,14 @@ class NoteAPI {
 
   Future<Note> fetchNoteDummy (String id) async {
     await Future.delayed(const Duration(seconds: 1));
-    return Note("1", "Judol1", "", "user1");
+    return Note("1", "Judol1", "aaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaa", "user1");
+  }
+
+  Future createNote (Note note) async {
+
+  }
+
+  Future editNote (Note note) async {
+
   }
 }
