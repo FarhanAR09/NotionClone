@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:notion_clone/api/noteApi.dart';
 import 'package:notion_clone/screens/pageView.dart';
 
-import 'package:notion_clone/models/note.dart';
-
 import '../screens/editNoteScreen.dart';
 
 class NoteSelectionButton extends StatelessWidget{

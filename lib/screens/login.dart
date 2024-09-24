@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notion_clone/api/userApi.dart';
 import 'package:notion_clone/screens/noteSelection.dart';
+import 'package:notion_clone/static/loginInfo.dart';
 
 import '../models/user.dart';
 
@@ -60,13 +61,16 @@ class LoginScreen extends StatelessWidget {
             ),
             GestureDetector(
               onTap: (){
-                UserAPI().login(User(usernameLoginController.text, passwordLoginController.text))
-                .then((_){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => NoteSelectScreen()));
-                })
-                .catchError((err){
-                  showMessage(err);
-                });
+                // UserAPI().signIn(User(usernameLoginController.text, passwordLoginController.text))
+                // .then((username){
+                //   LoginInfo.username = username;
+                //   Navigator.push(context, MaterialPageRoute(builder: (context) => const NoteSelectScreen()));
+                // })
+                // .catchError((err){
+                //   print(err);
+                //   showMessage("Gagal login");
+                // });
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const NoteSelectScreen()));
               },
               child: Container(
                 padding: const EdgeInsets.all(16),
@@ -113,7 +117,8 @@ class LoginScreen extends StatelessWidget {
                   //   showMessage("Berhasil register");
                   // })
                   //     .catchError((err){
-                  //   showMessage(err);
+                  //   print(err);
+                  //   showMessage("Gagal register");
                   // });
                   showMessage("Berhasil register");
                 },

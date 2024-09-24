@@ -1,5 +1,6 @@
 class Endpoints {
   static String baseUrl = 'localhost';
 
-  static String login = '$baseUrl/login';
+  static String signUp = '$baseUrl/signup';
+  static String signIn = '$baseUrl/signin';
 }

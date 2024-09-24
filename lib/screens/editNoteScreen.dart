@@ -10,7 +10,7 @@ class EditNoteScreen extends StatelessWidget {
     data = NoteAPI().fetchNoteDummy(id);
   }
 
-  late Future<Note> data;
+  late final Future<Note> data;
   final bool editMode;
   final String id;
   final TextEditingController judulController = TextEditingController();
