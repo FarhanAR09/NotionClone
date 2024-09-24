@@ -2,6 +2,7 @@ import 'package:notion_clone/models/note.dart';
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:notion_clone/static/loginInfo.dart';
 import '../static/endpoints.dart';
 
 class NoteAPI {
@@ -9,7 +10,7 @@ class NoteAPI {
     // await Future.delayed(const Duration(seconds: 1));
     // return [Note("1", "Judul 1", "", "1")];
     final response = await http.get(
-      Uri.parse("${Endpoints.getNotes}/$username"),
+      Uri.parse("http://localhost:3000/notes/get/$username"),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -18,9 +19,10 @@ class NoteAPI {
       throw Exception(response.body);
     }
     else {
+      print(response.body);
       final data = jsonDecode(response.body);
       return (data as List<dynamic>).map<Note>((obj){
-        return Note(obj['id'], obj['title'], '', obj['userID']);
+        return Note(obj['_id'], obj['title'], '', obj['userID']);
       }).toList();
     }
   }
@@ -44,7 +46,7 @@ class NoteAPI {
     // await Future.delayed(const Duration(seconds: 1));
     // return Note("1", "Judol1", "aaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaa", "user1");
     final response = await http.get(
-      Uri.parse('${Endpoints.getANote}/$id'),
+      Uri.parse('http://localhost:3000/notes/gets/$id'),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -54,21 +56,17 @@ class NoteAPI {
     }
     else {
       final data = jsonDecode(response.body);
-      return Note(data['id'], data['title'], data['content'], data['userID']);
+      return Note(data['_id'], data['title'], data['content'], data['userID']);
     }
   }
 
   Future createNote (Note note) async {
     final response = await http.post(
-      Uri.parse(Endpoints.createNote),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      Uri.parse('http://localhost:3000/notes/create'),
       body: {
-        'id' : note.id,
         'title' : note.title,
         'content' : note.content,
-        'userID' : note.userID,
+        'userID' : LoginInfo.username,
       },
     );
     if (!(response.statusCode >= 200 && response.statusCode <= 299)){
@@ -77,11 +75,9 @@ class NoteAPI {
   }
 
   Future editNote (Note note) async {
-    final response = await http.post(
-      Uri.parse('${Endpoints.editNote}/${note.id}'),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+    print(note.id);
+    final response = await http.put(
+      Uri.parse('http://localhost:3000/notes/update/${note.id}'),
       body: {
         'title' : note.title,
         'content' : note.content,
@@ -94,7 +90,7 @@ class NoteAPI {
 
   Future deleteNote (String id) async {
     final response = await http.delete(
-      Uri.parse('${Endpoints.editNote}/$id'),
+      Uri.parse('http://localhost:3000/notes/delete/$id'),
       headers: {
         'Content-Type': 'application/json',
       },

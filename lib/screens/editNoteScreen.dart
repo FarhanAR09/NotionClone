@@ -57,6 +57,7 @@ class EditNoteScreen extends StatelessWidget {
                         showMessage("Berhasil edit");
                   })
                       .catchError((err){
+                        print(err);
                         showMessage("Gagal edit");
                   });
                 }
@@ -66,6 +67,7 @@ class EditNoteScreen extends StatelessWidget {
                         showMessage("Berhasil buat");
                   })
                       .catchError((err){
+                        print(err);
                         showMessage("Gagal buat");
                   });
                 }

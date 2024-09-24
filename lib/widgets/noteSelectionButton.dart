@@ -59,6 +59,7 @@ class NoteSelectionButton extends StatelessWidget{
                   showMessage("Berhasil hapus");
             })
                 .catchError((err){
+                  print(err);
                   showMessage("Gagal hapus");
             });
           },

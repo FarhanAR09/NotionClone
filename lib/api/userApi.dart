@@ -8,7 +8,7 @@ class UserAPI{
   Future createUser (User user) async {
     print("User: " + user.username + user.password);
     final response = await http.post(
-      Uri.parse('http://localhost:3000/auth/create'),
+      Uri.parse('http://localhost:3000/auth/signup'),
       headers: {
         'Content-Type': 'application/json',
       },
