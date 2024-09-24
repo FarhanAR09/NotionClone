@@ -6,7 +6,7 @@ class NoteAPI {
   }
 
   Future<List<Note>> fetchNoteTitlesDummy () async {
-    Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     return [
       Note("1", "Judol1", "", "user1"),
       Note("2", "Judol2", "", "user2"),
@@ -16,7 +16,7 @@ class NoteAPI {
   }
 
   Future<Note> fetchNoteDummy (String id) async {
-    Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     return Note("1", "Judol1", "", "user1");
   }
 }

@@ -14,7 +14,7 @@ class NoteSelectionButton extends StatelessWidget{
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const PageViewScreen(id: 'ini ID',)));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => PageViewScreen(id: id,)));
       },
       child: Container(
         padding: const EdgeInsets.all(16),
