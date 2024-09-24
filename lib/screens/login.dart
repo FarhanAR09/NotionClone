@@ -108,13 +108,14 @@ class LoginScreen extends StatelessWidget {
             ),
             GestureDetector(
                 onTap: (){
-                  UserAPI().createUser(User(usernameLoginController.text, passwordLoginController.text))
-                      .then((_){
-                    showMessage("Berhasil register");
-                  })
-                      .catchError((err){
-                    showMessage(err);
-                  });
+                  // UserAPI().createUser(User(usernameLoginController.text, passwordLoginController.text))
+                  //     .then((_){
+                  //   showMessage("Berhasil register");
+                  // })
+                  //     .catchError((err){
+                  //   showMessage(err);
+                  // });
+                  showMessage("Berhasil register");
                 },
               child: Container(
                 padding: const EdgeInsets.all(16),
