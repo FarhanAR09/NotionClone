@@ -37,7 +37,28 @@ class PageViewScreenState extends State<PageViewScreen> {
           } else if (!snapshot.hasData) {
             return const Center(child: Text('No Data'));
           } else {
-            return Center(child: Text("Judul: ${snapshot.data!.title}"));
+            return Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      snapshot.data!.title,
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      snapshot.data!.userID,
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      snapshot.data!.content,
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+            );
           }
         },
       ),

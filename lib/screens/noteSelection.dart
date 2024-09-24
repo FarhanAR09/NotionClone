@@ -4,6 +4,8 @@ import 'package:notion_clone/api/noteApi.dart';
 import 'package:notion_clone/models/note.dart';
 import 'package:notion_clone/widgets/noteSelectionButton.dart';
 
+import 'editNoteScreen.dart';
+
 class NoteSelectScreen extends StatefulWidget {
 
   const NoteSelectScreen({super.key});
@@ -19,6 +21,10 @@ class NoteSelectScreenState extends State<NoteSelectScreen> {
   @override
   void initState() {
     super.initState();
+    refresh();
+  }
+
+  void refresh(){
     data = NoteAPI().fetchNoteTitles();
   }
 
@@ -39,13 +45,39 @@ class NoteSelectScreenState extends State<NoteSelectScreen> {
             return const Center(child: Text('No Data'));
           } else {
             return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: snapshot.data!.map<Widget>((note) => Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: NoteSelectionButton(title: note.title, id: note.id),
-                )).toList(),
+              child: Stack(
+                children: [
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: FloatingActionButton(
+                      onPressed: () {
+                        setState(() {
+                          refresh();
+                        });
+                      },
+                      child: const Icon(Icons.refresh, color: Colors.black,),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: FloatingActionButton(
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => EditNoteScreen(id: '_', editMode: false,)));
+                      },
+                      child: const Icon(Icons.add, color: Colors.black,),
+                    ),
+                  ),
+                  SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: snapshot.data!.map<Widget>((note) => Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: NoteSelectionButton(title: note.title, id: note.id),
+                      )).toList(),
+                    ),
+                  ),
+                ],
               ),
             );
           }

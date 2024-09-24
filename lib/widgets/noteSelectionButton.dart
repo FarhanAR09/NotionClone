@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notion_clone/api/noteApi.dart';
 import 'package:notion_clone/screens/pageView.dart';
 
 import 'package:notion_clone/models/note.dart';
@@ -14,6 +15,13 @@ class NoteSelectionButton extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+
+    void showMessage(String message){
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(message))
+      );
+    }
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -34,7 +42,7 @@ class NoteSelectionButton extends StatelessWidget{
         const SizedBox(width: 4,),
         GestureDetector(
           onTap: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => EditNoteScreen(id: id,)));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => EditNoteScreen(id: id, editMode: true,)));
           },
           child: Container(
             padding: const EdgeInsets.all(16),
@@ -43,6 +51,26 @@ class NoteSelectionButton extends StatelessWidget{
               color: Colors.grey,
             ),
             child: const Text('EDIT', style: TextStyle(color: Colors.white),),
+          ),
+        ),
+        const SizedBox(width: 4,),
+        GestureDetector(
+          onTap: (){
+            NoteAPI().deleteNote(id)
+                .then((res){
+                  showMessage("Berhasil hapus");
+            })
+                .catchError((err){
+                  showMessage("Gagal hapus");
+            });
+          },
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+              color: Colors.grey,
+            ),
+            child: const Text('HAPUS', style: TextStyle(color: Colors.white),),
           ),
         ),
       ],

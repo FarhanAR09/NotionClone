@@ -1,71 +1,86 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:notion_clone/api/noteApi.dart';
 
 import 'package:notion_clone/models/note.dart';
 
 class EditNoteScreen extends StatelessWidget {
-  EditNoteScreen({super.key, required this.id}){
+  EditNoteScreen({super.key, required this.id, required this.editMode}){
     data = NoteAPI().fetchNoteDummy(id);
   }
 
   late Future<Note> data;
+  final bool editMode;
   final String id;
   final TextEditingController judulController = TextEditingController();
   final TextEditingController contentController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+
+    void showMessage(String message){
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(message))
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(title: const Text("Edit Note"),),
-      body: Stack(
-        children: [
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: FloatingActionButton(
-              onPressed: () { print("Refreshing"); },
-              child: const Icon(Icons.refresh, color: Colors.black,),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 0.8 * MediaQuery.of(context).size.width,
+              child: TextField(
+                decoration: const InputDecoration(hintText: "Judul"),
+                controller: judulController,
+                textAlign: TextAlign.center,
+              ),
             ),
-          ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: FloatingActionButton(
-              onPressed: () { print("Adding"); },
-              child: const Icon(Icons.add, color: Colors.black,),
+            SizedBox(
+              width: 0.8 * MediaQuery.of(context).size.width,
+              child: TextField(
+                decoration: const InputDecoration(hintText: "Konten"),
+                controller: contentController,
+                textAlign: TextAlign.center,
+              ),
             ),
-          ),
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                TextField(
-                  decoration: const InputDecoration(hintText: "Judul"),
-                  controller: judulController,
+            GestureDetector(
+              onTap: (){
+                //NoteAPI().editNote();
+                if (editMode) {
+                  NoteAPI().editNote(Note(id, judulController.text, contentController.text, ""))
+                      .then((res){
+                        showMessage("Berhasil edit");
+                  })
+                      .catchError((err){
+                        showMessage("Gagal edit");
+                  });
+                }
+                else{
+                  NoteAPI().createNote(Note("", judulController.text, contentController.text, ""))
+                      .then((res){
+                        showMessage("Berhasil buat");
+                  })
+                      .catchError((err){
+                        showMessage("Gagal buat");
+                  });
+                }
+              },
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(16),
                 ),
-                TextField(
-                  decoration: const InputDecoration(hintText: "Konten"),
-                  controller: contentController,
-                ),
-                GestureDetector(
-                  onTap: (){
-                    //NoteAPI().editNote();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Berhasil edit"))
-                    );
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: const Text("SAVE!"),
-                  ),
-                ),
-              ],
+                child: Text(editMode ? "SAVE" : "CREATE"),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

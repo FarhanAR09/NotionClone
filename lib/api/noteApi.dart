@@ -28,4 +28,8 @@ class NoteAPI {
   Future editNote (Note note) async {
 
   }
+
+  Future deleteNote (String id) async {
+
+  }
 }
