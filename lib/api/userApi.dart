@@ -36,7 +36,7 @@ class UserAPI{
       throw Exception(response.body);
     }
     else {
-      return jsonDecode(response.body)['username'];
+      return user.username;
     }
   }
 }

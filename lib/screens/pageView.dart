@@ -18,7 +18,7 @@ class PageViewScreenState extends State<PageViewScreen> {
   @override
   void initState() {
     super.initState();
-    data = NoteAPI().fetchNoteDummy(widget.id);
+    data = NoteAPI().fetchNote(widget.id);
   }
 
   @override

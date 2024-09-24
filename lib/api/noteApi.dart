@@ -5,11 +5,11 @@ import 'package:http/http.dart' as http;
 import '../static/endpoints.dart';
 
 class NoteAPI {
-  Future<List<Note>> fetchNoteTitles () async {
+  Future<List<Note>> fetchNoteTitles (String username) async {
     // await Future.delayed(const Duration(seconds: 1));
     // return [Note("1", "Judul 1", "", "1")];
     final response = await http.get(
-      Uri.parse(Endpoints.getNotes),
+      Uri.parse("${Endpoints.getNotes}/$username"),
       headers: {
         'Content-Type': 'application/json',
       },

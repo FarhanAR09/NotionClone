@@ -1,9 +1,9 @@
 class Endpoints {
-  static String baseUrl = 'localhost';
+  static String baseUrl = 'localhost/api';
 
   //Auth
-  static String signUp = '$baseUrl/signup';
-  static String signIn = '$baseUrl/signin';
+  static String signUp = '$baseUrl/users/create';
+  static String signIn = '$baseUrl/auth/signin';
 
   //Note
   static String getNotes = '$baseUrl/all';

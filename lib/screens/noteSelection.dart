@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:notion_clone/api/noteApi.dart';
 
 import 'package:notion_clone/models/note.dart';
+import 'package:notion_clone/static/loginInfo.dart';
 import 'package:notion_clone/widgets/noteSelectionButton.dart';
 
 import 'editNoteScreen.dart';
@@ -25,7 +26,7 @@ class NoteSelectScreenState extends State<NoteSelectScreen> {
   }
 
   void refresh(){
-    data = NoteAPI().fetchNoteTitles();
+    data = NoteAPI().fetchNoteTitles(LoginInfo.username);
   }
 
   @override
