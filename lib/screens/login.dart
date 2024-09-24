@@ -1,13 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:notion_clone/api/userApi.dart';
 import 'package:notion_clone/screens/noteSelection.dart';
+
+import '../models/user.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
-  final usernameController = TextEditingController();
+  final usernameLoginController = TextEditingController();
+  final passwordLoginController = TextEditingController();
+
+  final usernameRegisterController = TextEditingController();
+  final passwordRegisterController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+
+    void showMessage(String message){
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(message))
+      );
+    }
+
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
@@ -19,20 +33,40 @@ class LoginScreen extends StatelessWidget {
           children: [
             const Text(
               "LOGIN HERE",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                )
             ),
             SizedBox(
-              width: 0.5 * MediaQuery.sizeOf(context).width,
+              width: 0.7 * MediaQuery.sizeOf(context).width,
               child: TextField(
-                controller: usernameController,
+                controller: usernameLoginController,
                 textAlign: TextAlign.center,
                 decoration: const InputDecoration(
                     hintText: 'Username'
                 ),
               ),
             ),
+            SizedBox(
+              width: 0.7 * MediaQuery.sizeOf(context).width,
+              child: TextField(
+                controller: passwordLoginController,
+                textAlign: TextAlign.center,
+                decoration: const InputDecoration(
+                    hintText: 'Password'
+                ),
+              ),
+            ),
             GestureDetector(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => NoteSelectScreen()));
+                UserAPI().login(User(usernameLoginController.text, passwordLoginController.text))
+                .then((_){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => NoteSelectScreen()));
+                })
+                .catchError((err){
+                  showMessage(err);
+                });
               },
               child: Container(
                 padding: const EdgeInsets.all(16),
@@ -40,7 +74,55 @@ class LoginScreen extends StatelessWidget {
                   color: Colors.green,
                 ),
                 child: const Text(
-                  "LOGIN"
+                  "LOGIN",
+                ),
+              ),
+            ),
+            const SizedBox(height: 32,),
+            const Text(
+                "REGISTER HERE",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                )
+            ),
+            SizedBox(
+              width: 0.7 * MediaQuery.sizeOf(context).width,
+              child: TextField(
+                controller: usernameRegisterController,
+                textAlign: TextAlign.center,
+                decoration: const InputDecoration(
+                    hintText: 'Username'
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 0.7 * MediaQuery.sizeOf(context).width,
+              child: TextField(
+                controller: passwordRegisterController,
+                textAlign: TextAlign.center,
+                decoration: const InputDecoration(
+                    hintText: 'Password'
+                ),
+              ),
+            ),
+            GestureDetector(
+                onTap: (){
+                  UserAPI().createUser(User(usernameLoginController.text, passwordLoginController.text))
+                      .then((_){
+                    showMessage("Berhasil register");
+                  })
+                      .catchError((err){
+                    showMessage(err);
+                  });
+                },
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                decoration: const BoxDecoration(
+                  color: Colors.green,
+                ),
+                child: const Text(
+                  "REGISTER",
                 ),
               ),
             ),
