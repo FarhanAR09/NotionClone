@@ -1,7 +1,8 @@
-import 'dart:convert';
 import 'package:notion_clone/models/user.dart';
-import 'package:http/http.dart' as http;
 import 'package:notion_clone/static/endpoints.dart';
+
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class UserAPI{
   Future createUser (User user) async {
