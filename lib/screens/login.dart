@@ -61,16 +61,15 @@ class LoginScreen extends StatelessWidget {
             ),
             GestureDetector(
               onTap: (){
-                // UserAPI().signIn(User(usernameLoginController.text, passwordLoginController.text))
-                // .then((username){
-                //   LoginInfo.username = username;
-                //   Navigator.push(context, MaterialPageRoute(builder: (context) => const NoteSelectScreen()));
-                // })
-                // .catchError((err){
-                //   print(err);
-                //   showMessage("Gagal login");
-                // });
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const NoteSelectScreen()));
+                UserAPI().signIn(User(usernameLoginController.text, passwordLoginController.text))
+                .then((username){
+                  LoginInfo.username = username;
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const NoteSelectScreen()));
+                })
+                .catchError((err){
+                  print(err);
+                  showMessage("Gagal login");
+                });
               },
               child: Container(
                 padding: const EdgeInsets.all(16),
@@ -112,15 +111,14 @@ class LoginScreen extends StatelessWidget {
             ),
             GestureDetector(
                 onTap: (){
-                  // UserAPI().createUser(User(usernameLoginController.text, passwordLoginController.text))
-                  //     .then((_){
-                  //   showMessage("Berhasil register");
-                  // })
-                  //     .catchError((err){
-                  //   print(err);
-                  //   showMessage("Gagal register");
-                  // });
-                  showMessage("Berhasil register");
+                  UserAPI().createUser(User(usernameRegisterController.text, passwordRegisterController.text))
+                      .then((_){
+                    showMessage("Berhasil register");
+                  })
+                      .catchError((err){
+                    print(err);
+                    showMessage("Gagal register");
+                  });
                 },
               child: Container(
                 padding: const EdgeInsets.all(16),

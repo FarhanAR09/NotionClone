@@ -6,8 +6,9 @@ import 'package:http/http.dart' as http;
 
 class UserAPI{
   Future createUser (User user) async {
+    print("User: " + user.username + user.password);
     final response = await http.post(
-      Uri.parse(Endpoints.signUp),
+      Uri.parse('http://localhost:3000/auth/create'),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -23,7 +24,7 @@ class UserAPI{
 
   Future<String> signIn (User user) async {
     final response = await http.post(
-      Uri.parse(Endpoints.signIn),
+      Uri.parse('http://localhost:3000/auth/signin'),
       headers: {
         'Content-Type': 'application/json',
       },
